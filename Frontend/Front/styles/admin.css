@@ -1,0 +1,277 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar Styles */
+#sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: white;
+    transition: width 0.3s ease;
+}
+
+#sidebar h2 {
+    text-align: center;
+    padding: 20px;
+    background-color: #1a252f;
+    margin: 0;
+}
+
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+#sidebar ul li {
+    padding: 20px;
+    border-bottom: 1px solid #1a252f;
+}
+
+#sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+}
+
+#sidebar ul li a:hover {
+    background-color: #34495e;
+}
+
+#content {
+    flex: 1;
+    padding: 20px;
+    background-color: #ecf0f1;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #34495e;
+    padding: 20px;
+    color: white;
+}
+
+#sidebarCollapse {
+    background-color: #1abc9c;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#sidebarCollapse:hover {
+    background-color: #16a085;
+}
+
+/* Collapsed Sidebar */
+#sidebar.collapsed {
+    width: 60px;
+}
+
+#sidebar.collapsed h2 {
+    display: none;
+}
+
+#sidebar.collapsed ul li {
+    text-align: center;
+}
+
+#sidebar.collapsed ul li a {
+    padding-left: 0;
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+/* Table Styles */
+#usersTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+}
+
+#usersTable thead {
+    background-color: #1b60ff; /* Header background color */
+    color: white;
+}
+
+#usersTable th,
+#usersTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd; /* Border between cells */
+}
+
+#usersTable th {
+    font-weight: bold;
+}
+
+#usersTable tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternating row colors */
+}
+
+#usersTable tbody tr:hover {
+    background-color: #f1f1f1; /* Row hover effect */
+}
+
+/* Delete Button Styles */
+.delete-button {
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 8px 12px;
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.delete-button:hover {
+    background-color: #c62828; /* Darker red on hover */
+}
+
+/* Event Form Styling */
+#eventForm {
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  #eventForm .form-group {
+    margin-bottom: 20px;
+  }
+  
+  #eventForm label {
+    display: block;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  #eventForm input[type="text"],
+  #eventForm input[type="date"],
+  #eventForm input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  
+  #eventForm input[type="text"]:focus,
+  #eventForm input[type="date"]:focus,
+  #eventForm input[type="file"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  #eventForm button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #eventForm button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    #eventForm {
+      padding: 15px;
+    }
+  
+    #eventForm button[type="submit"] {
+      padding: 10px 15px;
+    }
+  }
+
+  /* Event Section Styling */
+#eventList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .event-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .event-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .event-card h3 {
+    font-size: 1.25rem;
+    color: #333;
+    margin: 15px;
+  }
+  
+  .event-card p {
+    font-size: 1rem;
+    color: #555;
+    margin: 0 15px 10px;
+  }
+  
+  .event-card button {
+    display: inline-block;
+    margin: 10px 15px;
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .event-card button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Hover effect for cards */
+  .event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  

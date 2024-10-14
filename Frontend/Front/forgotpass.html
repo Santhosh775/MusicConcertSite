@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forget Password</title>
+    <link rel="stylesheet" href="./styles/forgetpass.css">
+</head>
+<body>
+    <form class="form form-reset" id="reset-form">
+        <fieldset>
+          <legend>Reset Password</legend>
+          <div class="input-block">
+            <label for="login-email">E-mail</label>
+            <input id="login-email" type="email" required>
+          </div>
+          <div class="input-block">
+            <label for="reset-password">New Password</label>
+            <input id="reset-password" type="password" required>
+          </div>
+          <div class="input-block">
+            <label for="confirm-reset-password">Confirm New Password</label>
+            <input id="confirm-reset-password" type="password" required>
+          </div>
+          <button type="submit" class="btn-reset">Reset Password</button>
+        </fieldset>
+    </form>
+    <script src="js/forgetpass.js"></script>
+</body>
+</html>
