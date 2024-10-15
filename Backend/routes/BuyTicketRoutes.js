@@ -10,7 +10,7 @@ router.post('/buy-tickets', async (req, res) => {
       eventLocation: req.body.eventLocation,
       eventDate: req.body.eventDate,
       amount: req.body.amount,
-      numTickets: req.body.numTickets,  // Added number of tickets field
+      numTickets: req.body.numTickets,  
       userDetails: {
         name: req.body.name,
         email: req.body.email,
@@ -26,5 +26,16 @@ router.post('/buy-tickets', async (req, res) => {
     res.status(500).json({ message: 'Error purchasing ticket' });
   }
 });
+
+router.get('/purchases', async (req, res) => {
+  try {
+    const purchases = await Purchase.find();
+    res.json(purchases);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching purchases' });
+  }
+});
+
 
 module.exports = router;

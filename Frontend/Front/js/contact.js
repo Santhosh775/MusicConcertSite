@@ -82,3 +82,26 @@ $(document).ready(function()
 	}
 
 });
+
+document.getElementById('contact_form').addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData);
+
+    try {
+        const response = await fetch('http://localhost:5000/api/contact', { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        alert(result.message);
+    } catch (error) {
+        alert('Error sending message');
+    }
+});
+

@@ -844,6 +844,7 @@ section
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+	margin-top: 50px;
 }
 
 .card:hover {
@@ -1338,15 +1339,17 @@ section
 {
 	padding-bottom: 106px;
 	background: #000000;
+	height: max-content;
 }
 .artist_content
 {
-	padding-top: 191px;
+	padding-top: 10px;
 }
 .artist_image
 {
-	width: calc(100% + 205px);
-	left: -185px;
+
+	width: calc(100% + 200px);
+	left: -100px;
 	padding-right: 20px;
 }
 .artist_image img

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Event = require('../models/eventModel');
 
-// Create a new event
+
 router.post('/', async (req, res) => {
   const { imageUrl, name, date, location } = req.body;
   try {
@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Get all events
+
 router.get('/', async (req, res) => {
   try {
     const events = await Event.find();
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get a single event by ID
+
 router.get('/:id', async (req, res) => {
   try {
       const event = await Event.findById(req.params.id);
@@ -37,9 +37,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-
-
-// Update an event by ID
 router.put('/:id', async (req, res) => {
   const { id } = req.params;
   const { imageUrl, name, date, location } = req.body;
@@ -54,7 +51,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete an event by ID
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {

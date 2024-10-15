@@ -6,7 +6,7 @@ const purchaseSchema = new mongoose.Schema({
   eventLocation: String,
   eventDate: String,
   amount: Number,
-  numTickets: { type: Number, required: true },  // Added number of tickets field
+  numTickets: { type: Number, required: true }, 
   userDetails: {
     name: String,
     email: String,

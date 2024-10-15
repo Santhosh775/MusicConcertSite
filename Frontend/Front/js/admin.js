@@ -196,6 +196,10 @@ async function editEvent(id) {
     document.getElementById('eventDate').value = new Date(event.date).toISOString().substring(0, 10);
     document.getElementById('eventLocation').value = event.location;
 
+    // Show the event form when editing
+    const eventForm = document.getElementById('eventForm');
+    eventForm.style.display = 'block'; // Show the form
+
     editingEventId = event._id;
     document.getElementById('eventSubmitButton').textContent = 'Update Event'; 
 
@@ -203,6 +207,7 @@ async function editEvent(id) {
     console.error('Error fetching event:', error);
   }
 }
+
 
 async function deleteEvent(id) {
   if (confirm("Are you sure you want to delete this event?")) {
@@ -224,5 +229,83 @@ async function deleteEvent(id) {
   }
 }
 
+async function loadPurchaseDetails() {
+  try {
+    // Fetch purchases from the server
+    const response = await fetch('http://localhost:5000/api/tickets/purchases');
+    if (!response.ok) {
+      throw new Error('Failed to fetch purchase data');
+    }
+    const purchases = await response.json();
 
+    // Group purchases by eventId
+    const purchasesByEvent = purchases.reduce((acc, purchase) => {
+      if (!acc[purchase.eventId]) {
+        acc[purchase.eventId] = [];
+      }
+      acc[purchase.eventId].push(purchase);
+      return acc;
+    }, {});
 
+    const ticketTablesContainer = document.getElementById('ticketTables');
+    ticketTablesContainer.innerHTML = ''; // Clear any existing content
+
+    // For each event, create a separate table
+    for (const eventId in purchasesByEvent) {
+      const eventPurchases = purchasesByEvent[eventId];
+      if (eventPurchases.length > 0) {
+        const eventName = eventPurchases[0].eventName; // All purchases for the same event will have the same eventName
+
+        // Create a new table for the event
+        const table = document.createElement('table');
+        table.classList.add('ticket-table');
+
+        // Create the table header
+        const tableHeader = `
+          <thead>
+            <tr>
+              <th colspan="10">${eventName}</th>
+            </tr>
+            <tr>
+              <th>Purchase Date</th>
+              <th>User Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Tickets Purchased</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+        `;
+
+        // Create the table body
+        const tableBody = document.createElement('tbody');
+        eventPurchases.forEach(purchase => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${new Date(purchase.purchaseDate).toLocaleDateString()}</td>
+            <td>${purchase.userDetails.name}</td>
+            <td>${purchase.userDetails.email}</td>
+            <td>${purchase.userDetails.phone}</td>
+            <td>${purchase.numTickets}</td>
+            <td>${purchase.amount}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+
+        // Append header and body to the table
+        table.innerHTML = tableHeader;
+        table.appendChild(tableBody);
+
+        // Append the table to the ticketTablesContainer
+        ticketTablesContainer.appendChild(table);
+      }
+    }
+  } catch (error) {
+    console.error('Error loading purchase details:', error);
+  }
+}
+
+// Load purchases when the dashboard is displayed
+document.addEventListener('DOMContentLoaded', function () {
+  loadPurchaseDetails();
+});

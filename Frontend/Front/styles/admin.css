@@ -98,7 +98,19 @@ header {
     display: block;
 }
 
+#dashboard h2{
+  margin-bottom: 5px;
+}
+#dashboard img{
+  margin-top: 20px;
+  width: 1100px;
+  height: 450px;
+}
+
 /* Table Styles */
+#users h2{
+  margin-left: 500px;
+}
 #usersTable {
     width: 100%;
     border-collapse: collapse;
@@ -146,7 +158,54 @@ header {
     background-color: #c62828; /* Darker red on hover */
 }
 
-/* Event Form Styling */
+
+/* Event Styling */
+#events h2{
+  margin-left: 500px;
+}
+#showEventFormButton {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono", monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .15s, transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-size: 18px;
+}
+
+#showEventFormButton:focus {
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+#showEventFormButton:hover {
+  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+#showEventFormButton:active {
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
 #eventForm {
     background-color: #ffffff;
     padding: 20px;
@@ -277,75 +336,94 @@ header {
   background-color: #c82333;
 }
 
-/* Styles for tables inside #ticketTables */
-#ticketTables table {
+/* Styling the Tickets section */
+#Tickets {
+  padding: 40px 20px;
+  background-color: #f8f9fa; /* Light background for the section */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 1200px; /* Constrain section width */
+}
+
+#Tickets h2 {
+  text-align: center;
+  color: #000000;
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Styling the container for ticket tables */
+#ticketTables {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Specific styles for the ticket tables within the #Tickets section */
+#Tickets .ticket-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-#ticketTables th, 
-#ticketTables td {
-  padding: 12px;
+#Tickets .ticket-table th, #Tickets .ticket-table td {
+  padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border: 1px solid #ddd;
 }
 
-#ticketTables th {
+#Tickets .ticket-table th {
   background-color: #f4f4f4;
-  font-weight: bold;
   color: #333;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-weight: bold;
 }
 
-#ticketTables tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-#ticketTables tr:hover {
-  background-color: #f1f1f1;
-}
-
-#ticketTables td {
+#Tickets .ticket-table td {
+  background-color: #fff;
   color: #555;
 }
 
-/* Responsive Table Design for #ticketTables */
+#Tickets .ticket-table tr:nth-child(even) td {
+  background-color: #f9f9f9;
+}
+
+#Tickets .ticket-table thead {
+  border-bottom: 2px solid #007bff;
+}
+
+#Tickets .ticket-table thead th[colspan="10"] {
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  border: none;
+}
+
+#Tickets .ticket-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+#Tickets .ticket-table tbody td {
+  font-size: 14px;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-  #ticketTables table, 
-  #ticketTables th, 
-  #ticketTables td {
-    display: block;
-    width: 100%;
+  #Tickets {
+    padding: 20px 10px;
+  }
+
+  #Tickets .ticket-table th, #Tickets .ticket-table td {
+    padding: 8px 10px;
   }
   
-  #ticketTables tr {
-    margin-bottom: 10px;
-  }
-  
-  #ticketTables th {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-  
-  #ticketTables td {
-    position: relative;
-    padding-left: 50%;
-    text-align: right;
-  }
-  
-  #ticketTables td:before {
-    content: attr(data-label);
-    position: absolute;
-    left: 10px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    text-transform: uppercase;
-    font-weight: bold;
+  #Tickets .ticket-table {
+    font-size: 12px;
   }
 }
-  
