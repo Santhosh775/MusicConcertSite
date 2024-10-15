@@ -8,25 +8,22 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   });
 
-  // Activate form based on URL parameter
+
   const params = new URLSearchParams(window.location.search);
-  const formType = params.get('type'); // Get the 'type' parameter from the URL
+  const formType = params.get('type'); 
 
   if (formType === 'register') {
-      // Activate register form
       document.querySelector('.form-wrapper:nth-child(2)').classList.add('is-active');
       document.querySelector('.form-wrapper:nth-child(1)').classList.remove('is-active');
   } else {
-      // Default to login form
       document.querySelector('.form-wrapper:nth-child(1)').classList.add('is-active');
       document.querySelector('.form-wrapper:nth-child(2)').classList.remove('is-active');
   }
 
-  // Form validation and submission logic (kept as is)
   const signupForm = document.getElementById('signup-form');
   const loginForm = document.getElementById('login-form');
 
-  // Backend URLs
+
   const loginUrl = 'http://localhost:5000/api/users/login';
   const signupUrl = 'http://localhost:5000/api/users/signup';
 
@@ -73,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   });
 
-  // Handle Login Form Submission
   loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const email = document.getElementById('login-email').value;
@@ -92,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (response.ok) {
-                // Store the username in localStorage
                 localStorage.setItem('username', data.user.username);
 
                 if (email === "santhosh@gmail.com" && password === "12345678") {

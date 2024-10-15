@@ -877,20 +877,23 @@ section
     margin-bottom: 10px;
 }
 
-/* Buy Tickets Button */
-.card a.btn {
-    background-color: #ff5e57;
+.card .btn {
+    background-color: #28a745; /* Updated to a modern green */
     color: #fff;
-    padding: 10px 20px;
+    padding: 12px 25px; /* Increased padding for a better feel */
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 50px; /* Rounded corners for a modern button */
     text-transform: uppercase;
-    font-weight: 600;
-    transition: background-color 0.3s;
+    font-weight: 700;
+    transition: background-color 0.4s, transform 0.3s, box-shadow 0.3s; /* Smooth transition */
+    display: inline-block;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-.card a.btn:hover {
-    background-color: #e74c3c;
+.card .btn:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: translateY(-3px); /* Button lift effect */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* More prominent shadow on hover */
     text-decoration: none;
 }
 
@@ -898,6 +901,9 @@ section
 @media (max-width: 991px) {
     .card img {
         height: 180px;
+    }
+	.card .btn {
+        padding: 10px 20px; /* Adjusted for smaller screens */
     }
 }
 
@@ -909,7 +915,12 @@ section
     .section_title h1 {
         font-size: 28px;
     }
+	.card .btn {
+        padding: 8px 18px;
+        font-size: 14px;
+    }
 }
+
 
 .jp-audio
 {

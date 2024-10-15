@@ -2,7 +2,6 @@ document.getElementById('sidebarCollapse').addEventListener('click', function ()
   document.getElementById('sidebar').classList.toggle('collapsed');
 });
 
-// Fetch users from the server and display in the users section
 async function fetchUsers() {
   try {
     const response = await fetch('http://localhost:5000/api/users');
@@ -12,10 +11,8 @@ async function fetchUsers() {
     const users = await response.json();
     const usersTableBody = document.getElementById('usersTable').querySelector('tbody');
 
-    // Clear the table body before appending new rows
     usersTableBody.innerHTML = '';
 
-    // Populate the table with user data
     users.forEach(user => {
       const row = document.createElement('tr');
       row.innerHTML = `
@@ -26,7 +23,6 @@ async function fetchUsers() {
       usersTableBody.appendChild(row);
     });
 
-    // Add event listener to each delete button
     document.querySelectorAll('.delete-button').forEach(button => {
       button.addEventListener('click', async function () {
         const userId = this.getAttribute('data-id');
@@ -35,7 +31,6 @@ async function fetchUsers() {
             method: 'DELETE',
           });
           if (deleteResponse.ok) {
-            // Remove the row from the table if deletion is successful
             this.parentElement.parentElement.remove();
             console.log('User deleted successfully');
           } else {
@@ -51,73 +46,78 @@ async function fetchUsers() {
   }
 }
 
-// Fetch and display users when the Users section is shown
 document.addEventListener('DOMContentLoaded', function () {
   const navLinks = document.querySelectorAll(".nav-link");
   const sections = document.querySelectorAll(".section");
 
-  // Function to hide all sections
   function hideAllSections() {
     sections.forEach(section => section.classList.remove("active"));
   }
 
-  // Function to show the selected section
   function showSection(sectionId) {
     document.getElementById(sectionId).classList.add("active");
 
-    // If the "Users" section is clicked, fetch the users
     if (sectionId === "users") {
       fetchUsers();
     }
   }
 
-  // Add click event to each navigation link
   navLinks.forEach(link => {
     link.addEventListener("click", function (e) {
-      e.preventDefault(); // Prevent default anchor behavior
+      e.preventDefault();
       const sectionId = this.getAttribute("data-section");
 
-      hideAllSections(); // Hide all sections
-      showSection(sectionId); // Show the clicked section
+      hideAllSections(); 
+      showSection(sectionId); 
     });
   });
 
-  // Default to show the first section (dashboard) and hide others
+ 
   hideAllSections();
   showSection("dashboard");
 });
 
-// Event Form logic (same as before, handles event CRUD)
 async function loadEvents() {
   try {
     const response = await fetch('http://localhost:5000/api/events');
     const events = await response.json();
 
-    const eventList = document.getElementById('eventList');
-    eventList.innerHTML = ''; // Clear previous events
+    const eventsTableBody = document.getElementById('eventsTable').querySelector('tbody');
+    eventsTableBody.innerHTML = ''; 
 
     events.forEach(event => {
-      const card = `
-        <div class="event-card" id="${event._id}">
-          <img src="${event.imageUrl}" alt="${event.name}" />
-          <h3>${event.name}</h3>
-          <p>Date: ${new Date(event.date).toLocaleDateString()}</p>
-          <p>Location: ${event.location}</p>
-          <button onclick="editEvent('${event._id}')">Edit</button>
-          <button onclick="deleteEvent('${event._id}')">Delete</button>
-        </div>
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${event.name}</td>
+        <td>${new Date(event.date).toLocaleDateString()}</td>
+        <td>${event.location}</td>
+        <td>
+          <button class="edit-button" onclick="editEvent('${event._id}')">Edit</button>
+          <button class="delete-button" onclick="deleteEvent('${event._id}')">Delete</button>
+        </td>
       `;
-      eventList.innerHTML += card;
+      eventsTableBody.appendChild(row);
     });
   } catch (error) {
     console.error('Error fetching events:', error);
   }
 }
 
-// Fetch and display events on page load
+
 window.onload = loadEvents;
 
-let editingEventId = null; // To track the event being edited
+let editingEventId = null; 
+
+document.getElementById('showEventFormButton').addEventListener('click', function () {
+  const eventForm = document.getElementById('eventForm');
+  
+  if (eventForm.style.display === 'none' || eventForm.style.display === '') {
+    eventForm.style.display = 'block';  // Show the form
+  } else {
+    eventForm.style.display = 'none';  // Hide the form
+  }
+});
+
 
 document.getElementById('eventForm').addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -138,24 +138,23 @@ document.getElementById('eventForm').addEventListener('submit', async (event) =>
     location: eventLocation,
   };
 
-  // If image is provided, process the image
   if (eventImage) {
     const reader = new FileReader();
     reader.onloadend = async function () {
-      formData.imageUrl = reader.result; // Add base64 image if provided
+      formData.imageUrl = reader.result; 
       await submitEventForm(formData);
     };
     reader.readAsDataURL(eventImage);
   } else {
-    await submitEventForm(formData); // Proceed without image
+    await submitEventForm(formData); 
   }
 });
 
 async function submitEventForm(formData) {
   try {
     const url = editingEventId
-      ? `http://localhost:5000/api/events/${editingEventId}` // Update event
-      : 'http://localhost:5000/api/events'; // Create new event
+      ? `http://localhost:5000/api/events/${editingEventId}` 
+      : 'http://localhost:5000/api/events'; 
 
     const method = editingEventId ? 'PUT' : 'POST';
 
@@ -170,10 +169,10 @@ async function submitEventForm(formData) {
     if (response.ok) {
       const event = await response.json();
       console.log('Event processed successfully', event);
-      loadEvents(); // Reload the events
-      editingEventId = null; // Reset editing state
-      document.getElementById('eventForm').reset(); // Clear form
-      document.getElementById('eventSubmitButton').textContent = 'Add Event'; // Reset button text
+      loadEvents(); 
+      editingEventId = null;
+      document.getElementById('eventForm').reset();
+      document.getElementById('eventSubmitButton').textContent = 'Add Event'; 
     } else {
       const error = await response.json();
       console.error('Error processing event:', error);
@@ -193,13 +192,12 @@ async function editEvent(id) {
     }
     const event = await response.json();
 
-    // Pre-fill the form with event details
     document.getElementById('eventName').value = event.name;
     document.getElementById('eventDate').value = new Date(event.date).toISOString().substring(0, 10);
     document.getElementById('eventLocation').value = event.location;
 
-    editingEventId = event._id; // Track the event being edited
-    document.getElementById('eventSubmitButton').textContent = 'Update Event'; // Update button text
+    editingEventId = event._id;
+    document.getElementById('eventSubmitButton').textContent = 'Update Event'; 
 
   } catch (error) {
     console.error('Error fetching event:', error);
@@ -215,7 +213,7 @@ async function deleteEvent(id) {
 
       if (response.ok) {
         console.log('Event deleted successfully');
-        loadEvents(); // Reload events after deletion
+        loadEvents(); 
       } else {
         const error = await response.json();
         console.error('Error deleting event:', error);
@@ -225,3 +223,6 @@ async function deleteEvent(id) {
     }
   }
 }
+
+
+

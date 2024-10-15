@@ -7,7 +7,7 @@ body, html {
 
 .container {
     display: flex;
-    height: 100vh;
+    height: max-content;
 }
 
 /* Sidebar Styles */
@@ -155,6 +155,7 @@ header {
     max-width: 600px;
     margin: 0 auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
   }
   
   #eventForm .form-group {
@@ -217,61 +218,134 @@ header {
     }
   }
 
-  /* Event Section Styling */
-#eventList {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-  }
-  
-  .event-card {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .event-card img {
+/* Events Table Styles */
+#eventsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1em;
+  font-family: Arial, sans-serif;
+}
+
+#eventsTable thead {
+  background-color: #007bff; /* Header background color */
+  color: white;
+}
+
+#eventsTable th, #eventsTable td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd; /* Border between cells */
+}
+
+#eventsTable th {
+  font-weight: bold;
+}
+
+#eventsTable tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Alternating row colors */
+}
+
+#eventsTable tbody tr:hover {
+  background-color: #f1f1f1; /* Row hover effect */
+}
+
+/* Edit and Delete Button Styles */
+.edit-button, .delete-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button {
+  background-color: #28a745; /* Green for edit */
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+}
+
+.delete-button {
+  background-color: #dc3545; /* Red for delete */
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+/* Styles for tables inside #ticketTables */
+#ticketTables table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+}
+
+#ticketTables th, 
+#ticketTables td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+#ticketTables th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#ticketTables tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#ticketTables tr:hover {
+  background-color: #f1f1f1;
+}
+
+#ticketTables td {
+  color: #555;
+}
+
+/* Responsive Table Design for #ticketTables */
+@media (max-width: 768px) {
+  #ticketTables table, 
+  #ticketTables th, 
+  #ticketTables td {
+    display: block;
     width: 100%;
-    height: 150px;
-    object-fit: cover;
   }
   
-  .event-card h3 {
-    font-size: 1.25rem;
-    color: #333;
-    margin: 15px;
+  #ticketTables tr {
+    margin-bottom: 10px;
   }
   
-  .event-card p {
-    font-size: 1rem;
-    color: #555;
-    margin: 0 15px 10px;
+  #ticketTables th {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
   }
   
-  .event-card button {
-    display: inline-block;
-    margin: 10px 15px;
-    padding: 8px 16px;
-    font-size: 0.875rem;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  #ticketTables td {
+    position: relative;
+    padding-left: 50%;
+    text-align: right;
   }
   
-  .event-card button:hover {
-    background-color: #0056b3;
+  #ticketTables td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-weight: bold;
   }
-  
-  /* Hover effect for cards */
-  .event-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
+}
   

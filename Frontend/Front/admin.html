@@ -14,6 +14,7 @@
                 <li><a href="#" class="nav-link" data-section="dashboard">Dashboard</a></li>
                 <li><a href="#" class="nav-link" data-section="users">Users</a></li>
                 <li><a href="#" class="nav-link" data-section="events">Events</a></li>
+                <li><a href="#" class="nav-link" data-section="Tickets">Tickets</a></li>
                 <li><a href="#" class="nav-link" data-section="logout">Logout</a></li>
             </ul>
         </nav>
@@ -49,33 +50,51 @@
             </section>
             <section id="events" class="section">
                 <h2>Events</h2>
-                <form id="eventForm" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="eventImage">Event Image URL:</label>
-                        <input type="file" id="eventImage" name="imageUrl" required>
-                        <br><br>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventName">Event Name:</label>
-                        <input type="text" id="eventName" name="name" required>
-                        <br><br>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventDate">Event Date:</label>
-                        <input type="date" id="eventDate" name="date" required>
-                        <br><br>
-                    </div>
-                    <div class="form-group">
-                        <label for="eventLocation">Event Location:</label>
-                        <input type="text" id="eventLocation" name="location" required>
-                    </div>
-                    <br><br>
-                    <button type="submit" id="eventSubmitButton" class="btn btn-primary">Add Event</button>
+              
+                <!-- Button to show the event form -->
+                <button id="showEventFormButton" class="btn btn-primary">+ Add Event</button>
+              
+                <!-- Event Form (initially hidden) -->
+                <form id="eventForm" enctype="multipart/form-data" style="display: none;">
+                  <div class="form-group">
+                    <label for="eventImage">Event Image URL:</label>
+                    <input type="file" id="eventImage" name="imageUrl" required><br><br>
+                  </div>
+                  <div class="form-group">
+                    <label for="eventName">Event Name:</label>
+                    <input type="text" id="eventName" name="name" required><br><br>
+                  </div>
+                  <div class="form-group">
+                    <label for="eventDate">Event Date:</label>
+                    <input type="date" id="eventDate" name="date" required><br><br>
+                  </div>
+                  <div class="form-group">
+                    <label for="eventLocation">Event Location:</label>
+                    <input type="text" id="eventLocation" name="location" required><br><br>
+                  </div>
+                  <button type="submit" id="eventSubmitButton" class="btn btn-primary">Add Event</button>
                 </form>
-                <!-- Event List to show added events -->
-                <div id="eventList"></div>
-            </section>
-                       
+              
+                <!-- Event cards table -->
+                <table id="eventsTable">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Date</th>
+                      <th>Location</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Event rows will be dynamically added here -->
+                  </tbody>
+                </table>
+              </section>
+              
+            <section id="Tickets" class="section">
+                <h2>Purchase Details</h2>
+                <div id="ticketTables"></div>
+              </section>
             <section id="logout" class="section">
                 <h2>Logout</h2>
                 <p>You have logged out.</p>
