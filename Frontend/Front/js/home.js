@@ -58,3 +58,16 @@ function buyTickets(id, name, location, date) {
 
 // Fetch and display events when the page loads
 document.addEventListener('DOMContentLoaded', loadEventsForHomePage);
+
+document.querySelector('.extra_button a').addEventListener('click', function(e) {
+  e.preventDefault(); // Prevent default anchor behavior
+  const targetId = this.getAttribute('href'); // Get the target section ID
+  const targetElement = document.querySelector(targetId); // Select target element
+
+  if (targetElement) {
+      // Smooth scroll to the target element
+      targetElement.scrollIntoView({ 
+          behavior: 'smooth' 
+      });
+  }
+});
