@@ -108,17 +108,18 @@ window.onload = loadEvents;
 
 let editingEventId = null; 
 
+// Show the form and hide the "Add Event" button when clicking it
 document.getElementById('showEventFormButton').addEventListener('click', function () {
   const eventForm = document.getElementById('eventForm');
-  
+  const addEventButton = document.getElementById('showEventFormButton');
+
   if (eventForm.style.display === 'none' || eventForm.style.display === '') {
     eventForm.style.display = 'block';  // Show the form
-  } else {
-    eventForm.style.display = 'none';  // Hide the form
+    addEventButton.style.display = 'none';  // Hide the "+ Add Event" button
   }
 });
 
-
+// Form submission logic
 document.getElementById('eventForm').addEventListener('submit', async (event) => {
   event.preventDefault();
 
@@ -150,13 +151,14 @@ document.getElementById('eventForm').addEventListener('submit', async (event) =>
   }
 });
 
+// Submit Event Form (both for adding or editing events)
 async function submitEventForm(formData) {
   try {
     const url = editingEventId
-      ? `http://localhost:5000/api/events/${editingEventId}` 
-      : 'http://localhost:5000/api/events'; 
+      ? `http://localhost:5000/api/events/${editingEventId}`  // Edit mode
+      : 'http://localhost:5000/api/events';  // Add mode
 
-    const method = editingEventId ? 'PUT' : 'POST';
+    const method = editingEventId ? 'PUT' : 'POST';  // Determine if we are adding or editing
 
     const response = await fetch(url, {
       method: method,
@@ -167,12 +169,15 @@ async function submitEventForm(formData) {
     });
 
     if (response.ok) {
-      const event = await response.json();
-      console.log('Event processed successfully', event);
-      loadEvents(); 
+      console.log('Event processed successfully');
+      loadEvents();  // Reload the event list
+
+      // Reset the form and state
       editingEventId = null;
       document.getElementById('eventForm').reset();
-      document.getElementById('eventSubmitButton').textContent = 'Add Event'; 
+      document.getElementById('eventForm').style.display = 'none'; // Hide the form after submission
+      document.getElementById('showEventFormButton').style.display = 'block'; // Show the "+ Add Event" button again
+      document.getElementById('eventSubmitButton').textContent = 'Add Event';  // Change button text back to "Add Event"
     } else {
       const error = await response.json();
       console.error('Error processing event:', error);
@@ -182,6 +187,7 @@ async function submitEventForm(formData) {
   }
 }
 
+// Edit Event functionality
 async function editEvent(id) {
   console.log('Editing event with ID:', id);
 
@@ -192,6 +198,7 @@ async function editEvent(id) {
     }
     const event = await response.json();
 
+    // Pre-fill the form with the existing event data
     document.getElementById('eventName').value = event.name;
     document.getElementById('eventDate').value = new Date(event.date).toISOString().substring(0, 10);
     document.getElementById('eventLocation').value = event.location;
@@ -200,14 +207,26 @@ async function editEvent(id) {
     const eventForm = document.getElementById('eventForm');
     eventForm.style.display = 'block'; // Show the form
 
+    // Hide the "+ Add Event" button when editing
+    document.getElementById('showEventFormButton').style.display = 'none';
+
+    // Set the editing state
     editingEventId = event._id;
-    document.getElementById('eventSubmitButton').textContent = 'Update Event'; 
+    document.getElementById('eventSubmitButton').textContent = 'Update Event';  // Change button text to "Update Event"
 
   } catch (error) {
     console.error('Error fetching event:', error);
   }
 }
 
+// Cancel edit and reset form if needed
+function cancelEdit() {
+  editingEventId = null;
+  document.getElementById('eventForm').reset();
+  document.getElementById('eventForm').style.display = 'none';
+  document.getElementById('showEventFormButton').style.display = 'block'; // Show the "Add Event" button
+  document.getElementById('eventSubmitButton').textContent = 'Add Event'; // Reset button text
+}
 
 async function deleteEvent(id) {
   if (confirm("Are you sure you want to delete this event?")) {
